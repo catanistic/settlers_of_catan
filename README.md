@@ -1,1 +1,1 @@
-# settlers_of_catan
+# Deep Learnig for Settlers of Catan
