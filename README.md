@@ -1,1 +1,1 @@
-# Deep Learnig for Settlers of Catan
+# The Settlers of Catan
