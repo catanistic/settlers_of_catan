@@ -1,4 +1,3 @@
-from catan import shared
 from catan.shared import GameObject, FieldType 
 
 from enum import Enum
@@ -7,11 +6,13 @@ from enum import Enum
 class ActionType(Enum):
     AcceptTrade = "accept_trade"
     BuildStructure = "build"
+    BuyDevelopementCard = "buy_development_card"
     Default = "default"
     EndTurn = "end" 
     KnightCard = "knight"
     MonopolyCard = "monopoly"
     MoveRobber = "connector"
+    PassRobbing = "pass_robbing"
     PlayDevelopmentCard = "development_card"
     ProposeTrade = "propose_trade"
     RejectTrade = "reject_trade"
@@ -25,10 +26,11 @@ class ActionType(Enum):
 class Action(GameObject):
     action_type = ActionType.Default
 
-    def __init__(self, actor_id, shared_state_id):
+    def __init__(self, actor_id=None, shared_state_id=None, next_state=None):
         super().__init__()
         self.actor_id = actor_id
         self.shared_state_id = shared_state_id
+        self.next_state = next_state
 
         self.schema.append_field("actor_id", FieldType.GameObjectReference)
         self.schema.append_field("shared_state_id", FieldType.GameObjectReference)
@@ -36,16 +38,12 @@ class Action(GameObject):
     @property
     def observation(self):
         raise NotImplementedError()
-        return self.schema(
-            self.actor_id,
-            self.shared_state_id,
-        )
 
     @property
     def id(self):
         return "{}.{}".format(super().id, self.action_type.value)
 
-    def execute(self, shared_state, actor_collection, board):
+    def __call__(self, game):
         raise NotImplementedError()
 
 
