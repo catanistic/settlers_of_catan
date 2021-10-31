@@ -14,3 +14,4 @@ class Node(GameObject):
 
     def __init__(self):
         super().__init__()
+        self.state = NodeState.Empty
