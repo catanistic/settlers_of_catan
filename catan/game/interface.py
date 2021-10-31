@@ -5,7 +5,7 @@ class GameInterface():
     def setUp(self):
         pass
 
-    def addActor(self, actor_id=None):
+    def addActor(self, actor_name=None):
         pass
 
     def attachObserver(self, observer):
@@ -24,5 +24,6 @@ class GameInterface():
     def step(self, action):
         pass
 
-    def observe(self):
+    @property
+    def observation(self):
         pass

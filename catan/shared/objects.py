@@ -1,25 +1,34 @@
 from catan.shared.schema import Schema
 
-from enum import Enum, auto
+from enum import Enum
 
 
 class GameObjectType(Enum):
     Action = "action"
     Actor = "actor" 
-    Connector = "connector"
+    Default = "default"
     GameState = "shared_state" 
     Node = "node" 
     Port = "port" 
+    Road = "road"
+    Robber = "robber"
     Tile = "tile" 
-    Default = "default"
+
+
+def id_generator():
+    id = 0
+    while True:
+        yield id
+        id += 1
 
 
 class GameObject():
     game_object_type = GameObjectType.Default
+    id_generator = id_generator()
 
-    def __init__(self, object_id=0):
+    def __init__(self):
         self.schema = Schema()
-        self.object_id = object_id
+        self.object_id = next(self.id_generator)
 
     @property
     def id(self):

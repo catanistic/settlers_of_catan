@@ -13,3 +13,5 @@ class TestGameObject(unittest.TestCase):
 
     def testId(self):
         self.assertEqual(self.object.id, "default.0")
+        self.object = catan.shared.GameObject()
+        self.assertEqual(self.object.id, "default.1")

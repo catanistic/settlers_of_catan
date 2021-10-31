@@ -1,9 +1,10 @@
-from enum import Enum, auto
+from enum import Enum
 
 
 class ResourceType(Enum):
-    Brick = auto()
-    Sheep = auto()
-    Stone = auto()
-    Wheat = auto()
-    Wood = auto()
+    Clay = "clay"
+    Null = "null"
+    Ore = "ore" 
+    Sheep = "sheep" 
+    Wheat = "wheat"
+    Wood = "wood" 
