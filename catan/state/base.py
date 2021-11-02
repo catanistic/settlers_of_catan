@@ -2,16 +2,17 @@ from enum import Enum
 
 
 class GameStateType(Enum):
-    Default = "default"
+    BuildingPhase = "building_phase"
     DevelopmentCard = "development_card"
-    DomesticTrade = "domestic_trade"
+    DiceRollingPhase = "roll_dice_phase"
     Robber = "robber"
     Setup = "setup"
     Spectate = "spectate"
+    TradingPhase = "trading_phase"
 
 
 class GameState():
-    game_state = GameStateType.Default
+    game_state = None
 
     def __init__(self, previous_state, game):
         self.previous_state = previous_state

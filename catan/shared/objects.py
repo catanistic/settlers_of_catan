@@ -34,7 +34,11 @@ class GameObject():
         """
         return "{}.{}".format(self.game_object_type.value, self.object_id)
 
-    def observation(self):
+    def observation(self, spectator_id=None):
         """Returns observation that is pertinent to the object.
+
+        Args:
+            spectator_id: The id for the spectator of the game Object.
+                          This can affect the observation in cases with hidden information.
         """
         raise NotImplementedError()
