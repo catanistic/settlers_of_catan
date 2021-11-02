@@ -1,3 +1,4 @@
+import catan.action
 import catan.agent
 import catan.card
 import catan.game
@@ -8,5 +9,7 @@ import catan.port
 import catan.resource
 import catan.road
 import catan.robber
+import catan.setup
 import catan.shared
+import catan.state
 import catan.tile

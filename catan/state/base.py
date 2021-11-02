@@ -4,9 +4,10 @@ from enum import Enum
 class GameStateType(Enum):
     Default = "default"
     DevelopmentCard = "development_card"
-    Robber = "robber"
     DomesticTrade = "domestic_trade"
-    InitialSelection = "initial_selection"
+    Robber = "robber"
+    Setup = "setup"
+    Spectate = "spectate"
 
 
 class GameState():

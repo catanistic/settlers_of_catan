@@ -11,5 +11,13 @@ class Agent(GameObject):
         self.development_cards = {}
         self.played_development_cards = {}
 
+    @property
+    def reward(self):
+        return 0
+
+    @property
+    def victory_points(self):
+        return 0
+
     def observation(self):
         pass

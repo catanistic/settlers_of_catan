@@ -49,16 +49,14 @@ class TestConnections(unittest.TestCase):
     def testBidirectionalObservation(self):
         self.connection = catan.graph.Connection(bidirectional=True)
         self.connection.connect(0, 1)
-        forward, backward = self.connection.observation()
+        forward = self.connection.observation()[0]
         self.assertListEqual(sorted(forward[0]), [0, 1])
         self.assertListEqual(sorted(forward[1]), [0, 1])
-        self.assertListEqual(backward[0], [])
-        self.assertListEqual(backward[1], [])
 
     def testNeighbors(self):
-        self.assertListEqual(self.connection.neighbors(0), [])
+        self.assertListEqual(list(self.connection.neighbors(0)), [])
         self.connection.connect(0, 1)
-        self.assertListEqual(self.connection.neighbors(0), [1])
+        self.assertListEqual(list(self.connection.neighbors(0)), [1])
 
 
 class TestGraph(unittest.TestCase):
@@ -112,7 +110,7 @@ class TestGraph(unittest.TestCase):
         connection_type = catan.graph.ConnectionType.Owns
         self.graph.addConnectionType(connection_type)
         self.graph.addGameObjects(["object_a", "object_b"])
-        self.assertListEqual(self.graph.neighbors(connection_type, "object_a"), [])
+        self.assertListEqual(list(self.graph.neighbors(connection_type, "object_a")), [])
         self.graph.connect(connection_type, "object_a", "object_b")
-        self.assertListEqual(self.graph.neighbors(connection_type, "object_a"), ["object_b"])
+        self.assertListEqual(list(self.graph.neighbors(connection_type, "object_a")), ["object_b"])
 

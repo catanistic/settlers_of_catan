@@ -24,5 +24,5 @@ class TestGame(unittest.TestCase):
         self.assertEqual(len(observations), 2)
 
     def testObservation(self):
-        observations, _ = self.game.observation()
+        observations, graph = self.game.observation()
         self.assertEqual(len(observations), 1)

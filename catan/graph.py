@@ -1,13 +1,27 @@
-from enum import Enum
+from enum import Enum, auto
 
 
 class ConnectionType(Enum):
-    Owns = False
-    NextPlayer = False
-    NextToNode = False
-    NextToPort = False
-    NodeNeighbor = True
-    RoadNeighbor = True
+    NextPlayer = auto() 
+    NextToNode = auto()
+    NextToPort = auto()
+    NextToRobber = auto()
+    NodeNeighbor = auto()
+    Owns = auto()
+    Reserved = auto() 
+    RoadNeighbor = auto() 
+
+IsBidirectional = {
+    ConnectionType.NextPlayer:False,
+    ConnectionType.NextToNode:False,
+    ConnectionType.NextToPort:False,
+    ConnectionType.NextToRobber:False,
+    ConnectionType.NodeNeighbor:True,
+    ConnectionType.Owns:False,
+    ConnectionType.Reserved:False,
+    ConnectionType.RoadNeighbor:True,
+}
+
 
 
 class Connection():
@@ -22,8 +36,8 @@ class Connection():
 
     def neighbors(self, idx):
         if idx in self.connections:
-            return list(self.connections[idx])
-        return []
+            return self.connections[idx].copy()
+        return set()
 
     def _connect(self, idx_a, idx_b):
         if idx_a not in self.connections:
@@ -53,8 +67,10 @@ class Connection():
                 edge_tails.append(tail)
 
         forward_edges = [edge_heads, edge_tails]
-        backward_edges = [[], []] if self.bidirectinal else [edge_tails[:], edge_heads[:]]
-        return forward_edges, backward_edges
+        if self.bidirectinal:
+            return [forward_edges]
+        backward_edges = [edge_tails[:], edge_heads[:]]
+        return [forward_edges, backward_edges]
 
 
 class Graph():
@@ -79,7 +95,7 @@ class Graph():
     def neighbors(self, connection_type, object_id):
         self._typecheckConnectionType(connection_type)
         neighbors = self.connections[connection_type].neighbors(self.game_object_mapping[object_id])
-        return [self.game_object_ids[n] for n in neighbors]
+        return {self.game_object_ids[n] for n in neighbors}
 
     def connect(self, connection_type, object_id_a, object_id_b):
         self._typecheckConnectionType(connection_type)
@@ -93,7 +109,7 @@ class Graph():
     
     def addConnectionType(self, connection_type):
         self._typecheckConnectionType(connection_type)
-        self.connections[connection_type] = Connection(connection_type.value)
+        self.connections[connection_type] = Connection(IsBidirectional[connection_type])
     
     def addGameObjects(self, game_object_ids):
         if game_object_ids is None:
