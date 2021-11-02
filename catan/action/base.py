@@ -4,24 +4,33 @@ from enum import Enum
 
 
 class ActionType(Enum):
-    BuildStructure = "build"
+    BuildRoad = "build_road"
+    BuildSettlement = "build_settlement"
     BuyDevelopementCard = "buy_development_card"
     DiscardResources = "discard_resources"
-    EndTurn = "end" 
+    EarnAchievement = "earn_achievement"
+    EarnResource = "earn_resource"
+    EndTurn = "end_turn"
     Lose = "lose"
+    LoseAchievement = "lose_achievement"
     Monopoly = "monopoly"
-    MoveRobber = "connector"
-    PlayDevelopmentCard = "development_card"
-    RoadBuildingCard = "road_building"
-    Spectate = "spectate"
+    MoveRobber = "move_robber"
+    NextPhase = "next_phase" 
+    PlayDevelopmentCard = "play_development_card"
+    RoadBuildingCard = "play_road_building"
+    RollDice = "roll_dice"
     TargetRobbing = "target_robbing"
     TradeWithEnvironment = "trade"
+    UpgradeSettlement = "upgrade_settlement"
     Win = "win"
     YearOfPlentyPick = "year_of_plenty"
+
+    Spectate = "spectate"
 
 
 class Action(GameObject):
     action_type = None 
+    is_inversible = False
 
     def __init__(self, agent_id, next_state):
         super().__init__()
@@ -31,12 +40,15 @@ class Action(GameObject):
         self.schema.append_field("actor_id", FieldType.GameObjectReference)
         self.schema.append_field("shared_state_id", FieldType.GameObjectReference)
 
-    def observation(self):
+    def observation(self, spectator_id=None, inverse=False):
         raise NotImplementedError()
 
     @property
     def id(self):
         return "{}.{}".format(super().id, self.action_type.value)
+
+    def __str__(self):
+        raise NotImplementedError()
 
     def __call__(self, game):
         raise NotImplementedError()

@@ -12,6 +12,10 @@ class Agent(GameObject):
         self.played_development_cards = {}
 
     @property
+    def id(self):
+        return "{}.{}".format(super().id, self.agent_name)
+
+    @property
     def reward(self):
         return 0
 

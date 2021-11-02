@@ -2,13 +2,13 @@ from enum import Enum
 
 
 class ResourceType(Enum):
-    Clay = "clay"
+    Clay = "Clay"
     Null = "null"
-    Ore = "ore" 
+    Ore = "Ore" 
     Unknown = "unknown"
-    Wheat = "wheat"
-    Wood = "wood" 
-    Wool = "wool" 
+    Wheat = "Wheat"
+    Wood = "Wood" 
+    Wool = "Wool" 
 
 
 ValidResourceTypes = {
