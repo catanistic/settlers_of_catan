@@ -4,27 +4,22 @@ from enum import Enum
 
 
 class ActionType(Enum):
-    AcceptTrade = "accept_trade"
     BuildStructure = "build"
     BuyDevelopementCard = "buy_development_card"
-    Default = "default"
+    DiscardResources = "discard_resources"
     EndTurn = "end" 
-    KnightCard = "knight"
-    MonopolyCard = "monopoly"
+    Monopoly = "monopoly"
     MoveRobber = "connector"
-    PassRobbing = "pass_robbing"
     PlayDevelopmentCard = "development_card"
-    ProposeTrade = "propose_trade"
-    RejectTrade = "reject_trade"
     RoadBuildingCard = "road_building"
-    RobPlayer = "rob"
-    RollDice = "roll"
+    Spectate = "spectate"
+    TargetRobbing = "target_robbing"
     TradeWithEnvironment = "trade"
-    YearOfPlentyCard = "year_of_plenty"
+    YearOfPlentyPick = "year_of_plenty"
 
 
 class Action(GameObject):
-    action_type = ActionType.Default
+    action_type = None 
 
     def __init__(self, actor_id=None, shared_state_id=None, next_state=None):
         super().__init__()
@@ -48,7 +43,7 @@ class Action(GameObject):
 
 
 class ActionFactory():
-    action_type = ActionType.Default
+    action_type = None
 
     def __call__(self, game):
         """Returns a list of available actions of type action_type for the player.

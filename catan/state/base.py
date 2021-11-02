@@ -3,14 +3,10 @@ from enum import Enum
 
 class GameStateType(Enum):
     Default = "default"
-    Monopoly = "monopoly"
-    MovingRobber = "robber_move"
-    RoadBuilding = "road_building"
-    Robbing = "robbing"
-    Start = "start_of_game"
-    TurnAfterDice = "after_dice"
-    TurnBeforeDice = "before_dice"
-    YearOfPlenty = "year_of_plenty"
+    DevelopmentCard = "development_card"
+    Robber = "robber"
+    DomesticTrade = "domestic_trade"
+    InitialSelection = "initial_selection"
 
 
 class GameState():

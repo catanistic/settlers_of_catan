@@ -6,7 +6,7 @@ from enum import Enum
 class NodeState(Enum):
     Empty = "empty"
     Settlement = "settlement"
-    Castle = "castle"
+    City = "city"
 
 
 class Node(GameObject):

@@ -4,9 +4,7 @@ from enum import Enum
 
 
 class GameObjectType(Enum):
-    Action = "action"
-    Actor = "actor" 
-    Default = "default"
+    Agent = "agent" 
     GameState = "shared_state" 
     Node = "node" 
     Port = "port" 
@@ -23,7 +21,7 @@ def id_generator():
 
 
 class GameObject():
-    game_object_type = GameObjectType.Default
+    game_object_type = None
     id_generator = id_generator()
 
     def __init__(self):
@@ -36,7 +34,6 @@ class GameObject():
         """
         return "{}.{}".format(self.game_object_type.value, self.object_id)
 
-    @property
     def observation(self):
         """Returns observation that is pertinent to the object.
         """

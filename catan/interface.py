@@ -15,6 +15,5 @@ class GameInterface():
     def step(self, action):
         pass
 
-    @property
     def observation(self):
         pass
