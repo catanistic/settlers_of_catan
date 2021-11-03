@@ -58,6 +58,7 @@ class Game():
     def addGameObject(self, game_object):
         self.ids[game_object.game_object_type].add(game_object.id)
         self.game_objects[game_object.id] = game_object
+        self.graph.addGameObjects([game_object.id])
 
     @property
     def action_space(self):

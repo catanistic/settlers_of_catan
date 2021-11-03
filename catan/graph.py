@@ -3,25 +3,27 @@ from enum import Enum, auto
 
 class ConnectionType(Enum):
     NextPlayer = auto() 
-    NextToNode = auto()
     NextToPort = auto()
-    NextToRobber = auto()
     NodeNeighbor = auto()
     Owns = auto()
-    Reserved = auto() 
     RoadNeighbor = auto() 
+    RoadNextToNode = auto()
+    RobberNextToNode = auto()
+    RobberOnTile = auto()
+    TileNextToNode = auto()
+
 
 IsBidirectional = {
     ConnectionType.NextPlayer:False,
-    ConnectionType.NextToNode:False,
     ConnectionType.NextToPort:False,
-    ConnectionType.NextToRobber:False,
     ConnectionType.NodeNeighbor:True,
     ConnectionType.Owns:False,
-    ConnectionType.Reserved:False,
     ConnectionType.RoadNeighbor:True,
+    ConnectionType.RoadNextToNode:False,
+    ConnectionType.RobberNextToNode:False,
+    ConnectionType.RobberOnTile:False,
+    ConnectionType.TileNextToNode:False,
 }
-
 
 
 class Connection():
