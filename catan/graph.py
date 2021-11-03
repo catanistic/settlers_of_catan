@@ -9,7 +9,6 @@ class ConnectionType(Enum):
     RoadNeighbor = auto() 
     RoadNextToNode = auto()
     RobberNextToNode = auto()
-    RobberOnTile = auto()
     TileNextToNode = auto()
 
 
@@ -21,7 +20,6 @@ IsBidirectional = {
     ConnectionType.RoadNeighbor:True,
     ConnectionType.RoadNextToNode:False,
     ConnectionType.RobberNextToNode:False,
-    ConnectionType.RobberOnTile:False,
     ConnectionType.TileNextToNode:False,
 }
 

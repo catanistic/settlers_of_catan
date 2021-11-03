@@ -8,18 +8,26 @@ from catan.tile import Tile
 
 TILES_PER_ROW = [3, 4, 5, 4, 3]
 PORT_NODES = [
-    [(0, 0), (0, 1)],
+    [(0, 2), (0, 3)],
+    [(0, 5), (0, 6)],
+    [(1, 8), (2, 9)],
+    [(3, 9), (4, 8)],
+    [(5, 6), (5, 5)],
+    [(5, 3), (5, 2)],
+    [(4, 0), (4, 1)],
+    [(3, 0), (2, 0)],
+    [(1, 0), (1, 1)],
 ]
 
 
-def calculateNumberOfNodesAt(level):
-    previous_level_tiles = TILES_PER_ROW[level - 1] if 0 <= level - 1 else 0
-    curr_level_tiles = TILES_PER_ROW[level] if level < len(TILES_PER_ROW) else 0
+def calculateNumberOfNodesAt(row):
+    previous_level_tiles = TILES_PER_ROW[row- 1] if 0 <= row - 1 else 0
+    curr_level_tiles = TILES_PER_ROW[row] if row < len(TILES_PER_ROW) else 0
     return max(curr_level_tiles, previous_level_tiles) * 2 + 1
 
 
-def calculateNumberOfRoadsAt(level):
-    return calculateNumberOfNodesAt(level) - 1
+def calculateNumberOfRoadsAt(row):
+    return calculateNumberOfNodesAt(row) - 1
 
 
 class GameSetup():
@@ -139,7 +147,7 @@ class GameSetup():
     def setRobberPosition(self, game, position):
         row, col = position
         tile = self.tiles[row][col]
-        game.graph.connect(ConnectionType.RobberOnTile, self.robber.id, tile.id)
+        self.robber.tile = tile
         node_ids = game.graph.neighbors(ConnectionType.TileNextToNode, tile.id)
         for node_id in node_ids:
             game.graph.connect(ConnectionType.RobberNextToNode, self.robber.id, node_id)
