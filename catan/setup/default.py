@@ -3,37 +3,37 @@ from catan.resource import ResourceType
 
 
 TILE_RESOURCES = [
+    ResourceType.Wheat,
+    ResourceType.Wool,
+    ResourceType.Wheat,
+
+    ResourceType.Wool,
+    ResourceType.Clay,
+    ResourceType.Wood,
     ResourceType.Ore,
+
+    ResourceType.Wood,
+    ResourceType.Ore,
+    ResourceType.Wheat,
     ResourceType.Wool,
     ResourceType.Wood,
 
-    ResourceType.Wheat,
     ResourceType.Clay,
-    ResourceType.Wool,
-    ResourceType.Clay,
-
-    ResourceType.Wheat,
     ResourceType.Wood,
+    ResourceType.Wool,
+    ResourceType.Wheat,
+
     ResourceType.Null,
-    ResourceType.Wood,
-    ResourceType.Ore,
-
-    ResourceType.Wood,
-    ResourceType.Ore,
-    ResourceType.Wheat,
-    ResourceType.Wool,
-
     ResourceType.Clay,
-    ResourceType.Wheat,
-    ResourceType.Wool
+    ResourceType.Ore,
 ]
 
 TILE_NUMBER_TOKENS = [
-    10, 2, 9,
-    12, 6, 4, 10,
-    9, 11, 0, 3, 8,
-    8, 3, 4, 5,
-    5, 6, 11,
+    9, 10, 8,
+    12, 5, 4, 3,
+    11, 6, 11, 9, 6,
+    4, 3, 10, 2,
+    0, 8, 5,
 ]
 
 ROBBER_POSITION = (2, 2)
