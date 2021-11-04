@@ -3,9 +3,10 @@ from enum import Enum
 
 class ResourceType(Enum):
     Clay = "Clay"
-    Null = "null"
+    Everything = "Everything"
+    Null = "Nothing"
     Ore = "Ore" 
-    Unknown = "unknown"
+    Unknown = "Unknown"
     Wheat = "Wheat"
     Wood = "Wood" 
     Wool = "Wool" 

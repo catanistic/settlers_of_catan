@@ -1,3 +1,4 @@
+from catan.resource import ResourceType
 from ...context import catan
 from catan.shared.objects import GameObjectType
 from catan.graph import ConnectionType
@@ -58,7 +59,8 @@ class TestRandomSetup(unittest.TestCase):
             self.assertEqual(len(node_ids), 6)
 
     def testSetRobberPosition(self):
-        self.setup.setRobberPosition(self.game, (0,0))
-        robber_id = self.setup.robber.id
+        robber = self.setup.robber
+        robber_id = robber.id
         node_ids = self.game.graph.neighbors(ConnectionType.RobberNextToNode, robber_id)
         self.assertEqual(len(node_ids), 6)
+        self.assertEqual(self.game.game_objects[robber.tile_id].resource_type, ResourceType.Null)

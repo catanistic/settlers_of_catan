@@ -147,7 +147,8 @@ class GameSetup():
     def setRobberPosition(self, game, position):
         row, col = position
         tile = self.tiles[row][col]
-        self.robber.tile = tile
+        self.robber.tile_id = tile.id
+        self.robber.position = position
         node_ids = game.graph.neighbors(ConnectionType.TileNextToNode, tile.id)
         for node_id in node_ids:
             game.graph.connect(ConnectionType.RobberNextToNode, self.robber.id, node_id)

@@ -1,6 +1,7 @@
 from ...context import catan
 from catan.shared.objects import GameObjectType
 from catan.graph import ConnectionType
+from catan.resource import ResourceType
 
 from collections import Counter
 import unittest
@@ -56,3 +57,10 @@ class TestDefaultSetup(unittest.TestCase):
         for tile_id in tile_ids:
             node_ids = self.game.graph.neighbors(ConnectionType.TileNextToNode, tile_id)
             self.assertEqual(len(node_ids), 6)
+
+    def testSetRobberPosition(self):
+        robber = self.setup.robber
+        robber_id = robber.id
+        node_ids = self.game.graph.neighbors(ConnectionType.RobberNextToNode, robber_id)
+        self.assertEqual(len(node_ids), 6)
+        self.assertEqual(self.game.game_objects[robber.tile_id].resource_type, ResourceType.Null)
