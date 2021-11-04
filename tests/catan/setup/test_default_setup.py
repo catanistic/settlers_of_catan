@@ -56,9 +56,3 @@ class TestDefaultSetup(unittest.TestCase):
         for tile_id in tile_ids:
             node_ids = self.game.graph.neighbors(ConnectionType.TileNextToNode, tile_id)
             self.assertEqual(len(node_ids), 6)
-
-    def testSetRobberPosition(self):
-        self.setup.setRobberPosition(self.game, (0,0))
-        robber_id = self.setup.robber.id
-        node_ids = self.game.graph.neighbors(ConnectionType.RobberNextToNode, robber_id)
-        self.assertEqual(len(node_ids), 6)
