@@ -6,8 +6,8 @@ from catan.shared import FieldType
 class EarnResource(Action):
     action_type = ActionType.EarnResource
 
-    def __init__(self, agent_id, next_state, amount, resource_type):
-        super().__init__(agent_id, next_state)
+    def __init__(self, agent, next_state, amount, resource_type):
+        super().__init__(agent, next_state)
         self.resource_type = resource_type
         self.amount = amount
         self.schema.append_field("resource_type", FieldType.Category, ResourceType)
@@ -15,14 +15,14 @@ class EarnResource(Action):
 
     def observation(self, spectator_id=None):
         return self.schema(
-            agent_id=self.agent_id,
+            agent_id=self.agent.id,
             resource_type=self.resource_type,
             amount=self.amount
         )
 
     def __str__(self):
         return "{} earned {} card(s) of type {}.".format(
-            self.agent_id.split(".")[-1],
+            self.agent.agent_name,
             self.amount, self.resource_type.value
         )
 
@@ -33,5 +33,5 @@ class EarnResource(Action):
 class EarnResourceFactory(ActionFactory):
     action_type = ActionType.EarnResource
 
-    def __call__(self, game, agent_id):
+    def __call__(self, game, agent):
         raise NotImplementedError()

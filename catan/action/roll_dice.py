@@ -6,15 +6,15 @@ import numpy as np
 class RollDice(Action):
     action_type = ActionType.RollDice 
 
-    def __init__(self, agent_id, next_state):
-        super().__init__(agent_id, next_state)
+    def __init__(self, agent, next_state):
+        super().__init__(agent, next_state)
         self.roll = np.random.randint(1, 7, 2).sum()
 
     def observation(self, spectator_id=None):
-        return self.schema(agent_id=self.agent_id)
+        return self.schema(agent_id=self.agent.id)
 
     def __str__(self):
-        return "{} rolled {}.".format(self.agent_id.split(".")[-1], self.roll)
+        return "{} rolled {}.".format(self.agent.agent_name, self.roll)
 
     def __call__(self, game):
         raise NotImplementedError()
@@ -23,5 +23,5 @@ class RollDice(Action):
 class RollDiceFactory(ActionFactory):
     action_type = ActionType.RollDice 
 
-    def __call__(self, game, agent_id, next_state):
-        return [RollDice(agent_id, next_state)]
+    def __call__(self, game, agent, next_state):
+        return [RollDice(agent, next_state)]

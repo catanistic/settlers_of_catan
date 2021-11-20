@@ -5,8 +5,8 @@ from catan.shared import FieldType
 class BuildSettlement(Action):
     action_type = ActionType.BuildSettlement
 
-    def __init__(self, agent_id, next_state, node, is_free=False):
-        super().__init__(agent_id, next_state)
+    def __init__(self, agent, next_state, node, is_free=False):
+        super().__init__(agent, next_state)
         self.node = node
         self.is_free = is_free
         self.schema.append_field("node_id", FieldType.GameObjectReference)
@@ -14,7 +14,7 @@ class BuildSettlement(Action):
 
     def observation(self, spectator_id=None):
         return self.schema(
-            agent_id=self.agent_id,
+            agent_id=self.agent.id,
             node_id=self.node.id,
             is_free=int(self.is_free),
         )
@@ -22,7 +22,7 @@ class BuildSettlement(Action):
     def __str__(self):
         free_modifier = " (for free)" if self.is_free else ""
         return "{} has build a settlement{} at {}.".format(
-            self.agent_id.split(".")[-1], free_modifier, str(self.node))
+            self.agent.agent_name, free_modifier, str(self.node))
 
     def __call__(self, game):
         raise NotImplementedError()
@@ -31,7 +31,7 @@ class BuildSettlement(Action):
 class BuildSettlementFactory(ActionFactory):
     action_type = ActionType.BuildSettlement
 
-    def __call__(self, game, agent_id):
+    def __call__(self, game, agent):
         """Returns a list of available actions of type action_type for the player.
 
         Args:

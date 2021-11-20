@@ -5,8 +5,8 @@ from catan.shared import FieldType
 class BuildRoad(Action):
     action_type = ActionType.BuildRoad
 
-    def __init__(self, agent_id, next_state, road, is_free=False):
-        super().__init__(agent_id, next_state)
+    def __init__(self, agent, next_state, road, is_free=False):
+        super().__init__(agent, next_state)
         self.road = road 
         self.is_free = is_free
         self.schema.append_field("road_id", FieldType.GameObjectReference)
@@ -14,7 +14,7 @@ class BuildRoad(Action):
 
     def observation(self, spectator_id=None):
         return self.schema(
-            agent_id=self.agent_id,
+            agent_id=self.agent.id,
             road_id=self.road.id,
             is_free=int(self.is_free),
         )
@@ -22,7 +22,7 @@ class BuildRoad(Action):
     def __str__(self):
         free_modifier = " (for free)" if self.is_free else ""
         return "{} has build a road{} at {}.".format(
-            self.agent_id.split(".")[-1], free_modifier, str(self.road))
+            self.agent.agent_name, free_modifier, str(self.road))
 
     def __call__(self, game):
         raise NotImplementedError()
@@ -31,7 +31,7 @@ class BuildRoad(Action):
 class BuildRoadFactory(ActionFactory):
     action_type = ActionType.BuildRoad
 
-    def __call__(self, game, agent_id):
+    def __call__(self, game, agent):
         """Returns a list of available actions of type action_type for the player.
 
         Args:

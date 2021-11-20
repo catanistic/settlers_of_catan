@@ -32,14 +32,13 @@ class Action(GameObject):
     action_type = None 
     is_spectable = True
 
-    def __init__(self, agent_id, next_state):
+    def __init__(self, agent, next_state):
         super().__init__()
-        self.agent_id = agent_id
+        self.agent = agent
         self.next_state = next_state
-
         self.schema.append_field("agent_id", FieldType.GameObjectReference)
 
-    def observation(self, spectator_id=None, inverse=False):
+    def observation(self, spectator_id=None):
         raise NotImplementedError()
 
     @property
@@ -56,7 +55,7 @@ class Action(GameObject):
 class ActionFactory():
     action_type = None
 
-    def __call__(self, game, agent_id):
+    def __call__(self, game, agent):
         """Returns a list of available actions of type action_type for the player.
 
         Args:

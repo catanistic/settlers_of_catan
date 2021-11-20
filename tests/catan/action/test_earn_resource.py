@@ -7,7 +7,7 @@ class TestEarnResource(unittest.TestCase):
     def setUp(self):
         super().setUp()
         self.agent = catan.agent.Agent(agent_name="Bob")
-        self.action = catan.action.earn_resource.EarnResource(self.agent.id, None, 1,
+        self.action = catan.action.earn_resource.EarnResource(self.agent, None, 1,
             catan.resource.ResourceType.Wheat)
     
     def testObservation(self):
@@ -20,7 +20,7 @@ class TestEarnResourceFactory(unittest.TestCase):
     def setUp(self):
         super().setUp()
         self.agent = catan.agent.Agent(agent_name="Bob")
-        self.action = catan.action.earn_resource.EarnResource(self.agent.id, None, 1,
+        self.action = catan.action.earn_resource.EarnResource(self.agent, None, 1,
             catan.resource.ResourceType.Wheat)
     
     def testActionSpace(self):

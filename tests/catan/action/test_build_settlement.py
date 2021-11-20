@@ -13,7 +13,7 @@ class TestBuildSettlement(unittest.TestCase):
         node_id = next(iter(node_ids))
         self.node = self.game.game_objects[node_id]
         self.agent = catan.agent.Agent(agent_name="Bob")
-        self.action = catan.action.build_settlement.BuildSettlement(self.agent.id, None, self.node)
+        self.action = catan.action.build_settlement.BuildSettlement(self.agent, None, self.node)
     
     def testObservation(self):
         observation = self.action.observation()

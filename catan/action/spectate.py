@@ -4,16 +4,16 @@ from catan.action.base import ActionType, Action, ActionFactory
 class Spectate(Action):
     action_type = ActionType.Spectate
 
-    def __init__(self, spectator_id, next_state, action):
-        super().__init__(spectator_id, next_state)
+    def __init__(self, spectator, next_state, action):
+        super().__init__(spectator, next_state)
         self.action = action
 
     def observation(self, spectator_id=None):
-        return self.action.__class__, self.action.observation(spectator_id)
+        return self.action.__class__, self.action.observation(self.agent.id)
 
     def __str__(self):
         return "{} watched as {}".format(
-            self.agent_id.split(".")[-1],
+            self.agent.agent_name,
             str(self.action), 
         )
 
@@ -24,5 +24,5 @@ class Spectate(Action):
 class SpectateFactory(ActionFactory):
     action_type = ActionType.Spectate
 
-    def __call__(self, spectator_id, action, next_state):
-        return [Spectate(spectator_id, next_state, action)]
+    def __call__(self, spectator, action, next_state):
+        return [Spectate(spectator, next_state, action)]

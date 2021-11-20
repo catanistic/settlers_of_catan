@@ -13,7 +13,7 @@ class TestBuildRoad(unittest.TestCase):
         road_id = next(iter(road_ids))
         self.road = self.game.game_objects[road_id]
         self.agent = catan.agent.Agent(agent_name="Bob")
-        self.action = catan.action.build_road.BuildRoad(self.agent.id, None, self.road)
+        self.action = catan.action.build_road.BuildRoad(self.agent, None, self.road)
     
     def testObservation(self):
         observation = self.action.observation()
