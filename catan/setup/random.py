@@ -30,7 +30,7 @@ class RandomGameSetup(GameSetup):
         for port, configuration in zip(self.ports, port_configurations):
             port.resource_type, port.exchange_rate = configuration
 
-    def setup(self, game):
-        super().setup(game)
+    def __call__(self, game):
+        super().__call__(game)
         self._setPortProperties(game)
         self._setTileProperties(game)

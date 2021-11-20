@@ -153,7 +153,7 @@ class GameSetup():
         for node_id in node_ids:
             game.graph.connect(ConnectionType.RobberNextToNode, self.robber.id, node_id)
 
-    def setup(self, game):
+    def __call__(self, game):
         # Generating Game Objects
         self._generateTiles(game)
         self._generateNodes(game)

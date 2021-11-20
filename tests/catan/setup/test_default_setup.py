@@ -12,7 +12,7 @@ class TestDefaultSetup(unittest.TestCase):
         super().setUp()
         self.game = catan.game.Game()
         self.setup = catan.setup.default.DefaultGameSetup()
-        self.setup.setup(self.game)
+        self.setup(self.game)
 
     def testRoads(self):
         road_ids = list(self.game.ids[GameObjectType.Road])

@@ -16,3 +16,6 @@ class Node(GameObject):
         super().__init__()
         self.state = NodeState.Empty
         self.position = position
+
+    def __str__(self):
+        return "{}".format(self.position)

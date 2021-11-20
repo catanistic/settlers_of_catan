@@ -12,7 +12,7 @@ class TestRandomSetup(unittest.TestCase):
         super().setUp()
         self.game = catan.game.Game()
         self.setup = catan.setup.random.RandomGameSetup()
-        self.setup.setup(self.game)
+        self.setup(self.game)
 
     def testRoads(self):
         road_ids = list(self.game.ids[GameObjectType.Road])

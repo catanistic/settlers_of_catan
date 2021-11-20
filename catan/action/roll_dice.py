@@ -11,7 +11,7 @@ class RollDice(Action):
         self.roll = np.random.randint(1, 7, 2).sum()
 
     def observation(self, spectator_id=None):
-        raise NotImplementedError()
+        return self.schema(agent_id=self.agent_id)
 
     def __str__(self):
         return "{} rolled {}.".format(self.agent_id.split(".")[-1], self.roll)
@@ -23,5 +23,5 @@ class RollDice(Action):
 class RollDiceFactory(ActionFactory):
     action_type = ActionType.RollDice 
 
-    def __call__(self, game, agent_id):
-        raise NotImplementedError()
+    def __call__(self, game, agent_id, next_state):
+        return [RollDice(agent_id, next_state)]

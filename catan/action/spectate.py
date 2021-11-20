@@ -9,7 +9,7 @@ class Spectate(Action):
         self.action = action
 
     def observation(self, spectator_id=None):
-        raise NotImplementedError()
+        return self.action.__class__, self.action.observation(spectator_id)
 
     def __str__(self):
         return "{} watched as {}".format(

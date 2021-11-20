@@ -37,8 +37,7 @@ class Action(GameObject):
         self.agent_id = agent_id
         self.next_state = next_state
 
-        self.schema.append_field("actor_id", FieldType.GameObjectReference)
-        self.schema.append_field("shared_state_id", FieldType.GameObjectReference)
+        self.schema.append_field("agent_id", FieldType.GameObjectReference)
 
     def observation(self, spectator_id=None, inverse=False):
         raise NotImplementedError()

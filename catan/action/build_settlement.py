@@ -5,24 +5,24 @@ from catan.shared import FieldType
 class BuildSettlement(Action):
     action_type = ActionType.BuildSettlement
 
-    def __init__(self, agent_id, next_state, location_id, is_free=False):
+    def __init__(self, agent_id, next_state, node, is_free=False):
         super().__init__(agent_id, next_state)
-        self.location_id = location_id
+        self.node = node
         self.is_free = is_free
-        self.schema.append_field("location_id", FieldType.GameObjectReference)
+        self.schema.append_field("node_id", FieldType.GameObjectReference)
         self.schema.append_field("is_free", FieldType.Integer)
 
     def observation(self, spectator_id=None):
         return self.schema(
             agent_id=self.agent_id,
-            location_id=self.location_id,
+            node_id=self.node.id,
             is_free=int(self.is_free),
         )
 
     def __str__(self):
         free_modifier = " (for free)" if self.is_free else ""
         return "{} has build a settlement{} at {}.".format(
-            self.agent_id.split(".")[-1], free_modifier, self.location_id.location_id.split(".")[-1])
+            self.agent_id.split(".")[-1], free_modifier, str(self.node))
 
     def __call__(self, game):
         raise NotImplementedError()
