@@ -23,5 +23,5 @@ class RollDice(Action):
 class RollDiceFactory(ActionFactory):
     action_type = ActionType.RollDice 
 
-    def action_space(self, game, agent_id):
+    def __call__(self, game, agent_id):
         raise NotImplementedError()

@@ -14,8 +14,7 @@ class GameStateType(Enum):
 class GameState():
     game_state = None
 
-    def __init__(self, previous_state, game):
-        self.previous_state = previous_state
+    def __init__(self, game):
         self.game = game
 
     @property

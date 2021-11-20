@@ -1,8 +1,11 @@
+from catan.action.base import ActionType
+from catan.card import DevelopmentCardType
 from catan.graph import Graph, ConnectionType
 from catan.resource import ValidResourceTypes
-from catan.card import DevelopmentCardType
 from catan.shared.objects import GameObject, GameObjectType
 from catan.shared.schema import FieldType
+from catan.state.base import GameStateType
+from catan.state.spectate import SpectateGameState
 
 
 class GameState(GameObject):
@@ -66,11 +69,16 @@ class Game():
             return self.state.action_space
 
     def step(self, action):
-        self.action_history.append(action)
-        action(self)
-        if self.logging_callbacks is not None:
-            for logging_callback in self.logging_callbacks:
-                logging_callback(str(action))
+        if (action.action_type == ActionType.Spectate or
+            self.state.state_type == GameStateType.Spectate):
+            self.action_history.append(action)
+            action(self)
+            if self.logging_callbacks is not None:
+                for logging_callback in self.logging_callbacks:
+                    logging_callback(str(action))
+        else:
+            self.state = SpectateGameState(action)
+            self.step(self.state.action_space[0])
 
     @property
     def reward(self):

@@ -31,7 +31,7 @@ class BuildRoad(Action):
 class BuildRoadFactory(ActionFactory):
     action_type = ActionType.BuildRoad
 
-    def action_space(self, game, agent_id):
+    def __call__(self, game, agent_id):
         """Returns a list of available actions of type action_type for the player.
 
         Args:

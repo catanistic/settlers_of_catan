@@ -18,8 +18,8 @@ class ActionType(Enum):
     NextPhase = "next_phase" 
     PlayDevelopmentCard = "play_development_card"
     RoadBuildingCard = "play_road_building"
+    RobPlayer = "rob_player"
     RollDice = "roll_dice"
-    TargetRobbing = "target_robbing"
     TradeWithEnvironment = "trade"
     UpgradeSettlement = "upgrade_settlement"
     Win = "win"
@@ -30,7 +30,7 @@ class ActionType(Enum):
 
 class Action(GameObject):
     action_type = None 
-    is_inversible = False
+    is_spectable = True
 
     def __init__(self, agent_id, next_state):
         super().__init__()
@@ -57,7 +57,7 @@ class Action(GameObject):
 class ActionFactory():
     action_type = None
 
-    def action_space(self, game, agent_id):
+    def __call__(self, game, agent_id):
         """Returns a list of available actions of type action_type for the player.
 
         Args:

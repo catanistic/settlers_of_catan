@@ -2,10 +2,10 @@ from catan.action.base import ActionType, Action, ActionFactory
 
 
 class Spectate(Action):
-    action_type = ActionType.EarnResource
+    action_type = ActionType.Spectate
 
-    def __init__(self, agent_id, next_state, action):
-        super().__init__(agent_id, next_state)
+    def __init__(self, spectator_id, next_state, action):
+        super().__init__(spectator_id, next_state)
         self.action = action
 
     def observation(self, spectator_id=None):
@@ -18,11 +18,11 @@ class Spectate(Action):
         )
 
     def __call__(self, game):
-        raise NotImplementedError()
+        pass
 
 
 class SpectateFactory(ActionFactory):
     action_type = ActionType.Spectate
 
-    def action_space(self, game, agent_id):
-        raise NotImplementedError()
+    def __call__(self, spectator_id, action, next_state):
+        return [Spectate(spectator_id, next_state, action)]

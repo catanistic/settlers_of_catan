@@ -27,7 +27,7 @@ class UpgradeSettlement(Action):
 class UpgradeSettlementFactory(ActionFactory):
     action_type = ActionType.UpgradeSettlement
 
-    def action_space(self, game, agent_id):
+    def __call__(self, game, agent_id):
         """Returns a list of available actions of type action_type for the player.
 
         Args:
