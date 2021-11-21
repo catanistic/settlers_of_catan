@@ -8,8 +8,8 @@ class Spectate(Action):
         super().__init__(spectator, next_state)
         self.action = action
 
-    def observation(self, spectator_id=None):
-        return self.action.__class__, self.action.observation(self.agent.id)
+    def observation(self, spectator=None):
+        return self.action.__class__, self.action.observation(self.agent)
 
     def __str__(self):
         return "{} watched as {}".format(

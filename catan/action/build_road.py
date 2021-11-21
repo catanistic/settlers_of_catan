@@ -12,7 +12,7 @@ class BuildRoad(Action):
         self.schema.append_field("road_id", FieldType.GameObjectReference)
         self.schema.append_field("is_free", FieldType.Integer)
 
-    def observation(self, spectator_id=None):
+    def observation(self, spectator=None):
         return self.schema(
             agent_id=self.agent.id,
             road_id=self.road.id,
@@ -31,14 +31,18 @@ class BuildRoad(Action):
 class BuildRoadFactory(ActionFactory):
     action_type = ActionType.BuildRoad
 
-    def __call__(self, game, agent):
-        """Returns a list of available actions of type action_type for the player.
+    def __init__(self, game, agent, next_state, is_free=False, node=None, road_number=1):
+        super().__init__(game, agent, next_state)
+        self.is_free = is_free
+        self.node = node
+        self.road_number = road_number
+        self.curr_road = 1
 
-        Args:
-            game: A catan.game.Game object.
-            agent_id: Agent id for the agend that.
+    def __call__(self):
+        """Returns a list of available actions of type action_type for the player.
 
         Returns:
             List of legal action of type action_type.
         """
+        next_state = self.next_state if self.curr_road == self.road_number else self
         raise NotImplementedError()

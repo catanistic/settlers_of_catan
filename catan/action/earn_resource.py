@@ -13,7 +13,7 @@ class EarnResource(Action):
         self.schema.append_field("resource_type", FieldType.Category, ResourceType)
         self.schema.append_field("amount", FieldType.Integer)
 
-    def observation(self, spectator_id=None):
+    def observation(self, spectator=None):
         return self.schema(
             agent_id=self.agent.id,
             resource_type=self.resource_type,
@@ -33,5 +33,10 @@ class EarnResource(Action):
 class EarnResourceFactory(ActionFactory):
     action_type = ActionType.EarnResource
 
-    def __call__(self, game, agent):
+    def __call__(self):
+        """Returns a list of available actions of type action_type for the player.
+
+        Returns:
+            List of legal action of type action_type.
+        """
         raise NotImplementedError()

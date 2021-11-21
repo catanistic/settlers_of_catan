@@ -2,7 +2,6 @@ from enum import Enum, auto
 
 
 class ConnectionType(Enum):
-    NextPlayer = auto() 
     NextToPort = auto()
     NodeNeighbor = auto()
     Owns = auto()
@@ -13,14 +12,13 @@ class ConnectionType(Enum):
 
 
 IsBidirectional = {
-    ConnectionType.NextPlayer:False,
-    ConnectionType.NextToPort:False,
-    ConnectionType.NodeNeighbor:True,
-    ConnectionType.Owns:False,
-    ConnectionType.RoadNeighbor:True,
-    ConnectionType.RoadNextToNode:False,
-    ConnectionType.RobberNextToNode:False,
-    ConnectionType.TileNextToNode:False,
+    ConnectionType.NextToPort:          False,
+    ConnectionType.NodeNeighbor:        True,
+    ConnectionType.Owns:                False,
+    ConnectionType.RoadNeighbor:        True,
+    ConnectionType.RoadNextToNode:      False,
+    ConnectionType.RobberNextToNode:    False,
+    ConnectionType.TileNextToNode:      False,
 }
 
 

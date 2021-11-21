@@ -12,7 +12,7 @@ class BuildSettlement(Action):
         self.schema.append_field("node_id", FieldType.GameObjectReference)
         self.schema.append_field("is_free", FieldType.Integer)
 
-    def observation(self, spectator_id=None):
+    def observation(self, spectator=None):
         return self.schema(
             agent_id=self.agent.id,
             node_id=self.node.id,
@@ -31,12 +31,8 @@ class BuildSettlement(Action):
 class BuildSettlementFactory(ActionFactory):
     action_type = ActionType.BuildSettlement
 
-    def __call__(self, game, agent):
+    def __call__(self):
         """Returns a list of available actions of type action_type for the player.
-
-        Args:
-            game: A catan.game.Game object.
-            agent_id: Agent id for the agend that.
 
         Returns:
             List of legal action of type action_type.

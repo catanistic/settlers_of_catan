@@ -22,6 +22,6 @@ class GameState():
         """Generates the action space for the current state.
 
         Returns:
-            A list of tuples of action and next state pairs.
+            A list of possible actions.
         """
         pass

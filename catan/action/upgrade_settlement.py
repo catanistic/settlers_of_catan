@@ -10,7 +10,7 @@ class UpgradeSettlement(Action):
         self.node = node 
         self.schema.append_field("node_id", FieldType.GameObjectReference)
 
-    def observation(self, spectator_id=None):
+    def observation(self, spectator=None):
         return self.schema(
             agent_id=self.agent.id,
             node_id=self.node.id,
