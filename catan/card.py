@@ -10,10 +10,10 @@ class DevelopmentCardType(Enum):
     Uknown = "Uknown"
 
 
-ValidDevelopmentCardTypes = {
+ValidDevelopmentCardTypes = [
     DevelopmentCardType.Knight,
     DevelopmentCardType.Monopoly,
     DevelopmentCardType.RoadBuilding,
     DevelopmentCardType.VictoryPoint,
     DevelopmentCardType.YearOfPlenty,
-}
+]

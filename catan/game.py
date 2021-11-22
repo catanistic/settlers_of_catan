@@ -69,8 +69,7 @@ class Game():
             return self.state.action_space
 
     def step(self, action):
-        if (action.action_type == ActionType.Spectate or
-            self.state.state_type == GameStateType.Spectate):
+        if type(self.state) is SpectateGameState:
             self.action_history.append(action)
             action(self)
             if self.logging_callbacks is not None:
@@ -82,8 +81,7 @@ class Game():
 
     @property
     def reward(self):
-        previous_agent_id = self.action_history[-1].agent_id
-        return self.game_objects[previous_agent_id].reward
+        return self.action_history[-1].agent.reward
 
     def observation(self):
         observations = {

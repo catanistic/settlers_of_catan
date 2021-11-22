@@ -90,7 +90,7 @@ class GameSetup():
 
     def _addNodeNodeConnections(self, game):
         connection_type = ConnectionType.NodeNeighbor
-        road_connection = ConnectionType.RoadNextToNode
+        road_connection = ConnectionType.NodeNextToRoad
 
         # Node neighbors in the same "row"
         for row, nodes in enumerate(self.nodes):
@@ -99,8 +99,8 @@ class GameSetup():
                 game.graph.connect(connection_type, node.id, neighbor.id)
 
                 road = self.roads[row][col]
-                game.graph.connect(road_connection, road.id, node.id)
-                game.graph.connect(road_connection, road.id, neighbor.id)
+                game.graph.connect(road_connection, node.id, road.id)
+                game.graph.connect(road_connection, neighbor.id, road.id)
 
         # Node neighbors from different "rows"
         from_correction = [1, 1, 1, 0, 0, 0]
@@ -113,8 +113,8 @@ class GameSetup():
                 game.graph.connect(connection_type, node.id, neighbor.id)
 
                 road = self.side_roads[row - 1][col // 2]
-                game.graph.connect(road_connection, road.id, node.id)
-                game.graph.connect(road_connection, road.id, neighbor.id)
+                game.graph.connect(road_connection, node.id, road.id)
+                game.graph.connect(road_connection, neighbor.id, road.id)
 
     def _addRoadRoadConnections(self, game):
         connection_type = ConnectionType.RoadNeighbor

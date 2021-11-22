@@ -4,8 +4,6 @@ from catan.shared.objects import GameObjectType
 
 
 class SpectateGameState(GameState):
-    game_state = GameStateType.Spectate
-
     def __init__(self, game, action):
         """
             Args:

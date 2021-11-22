@@ -19,9 +19,7 @@ class TestBaseSetup(unittest.TestCase):
 
         roads_with_num_neighbors = []
         for road_id in road_ids:
-            node_ids = self.game.graph.neighbors(ConnectionType.RoadNextToNode, road_id)
             road_neighbors = self.game.graph.neighbors(ConnectionType.RoadNeighbor, road_id)
-            self.assertEqual(len(node_ids), 2)
             roads_with_num_neighbors.append(len(road_neighbors))
         roads_with_num_neighbors = Counter(roads_with_num_neighbors)
         self.assertDictEqual(roads_with_num_neighbors, {2:6, 3:24, 4:42})
@@ -46,6 +44,8 @@ class TestBaseSetup(unittest.TestCase):
         for node_id in node_ids:
             neighbors = self.game.graph.neighbors(ConnectionType.NodeNeighbor, node_id)
             node_num_neighbors.append(len(neighbors))
+            roads = self.game.graph.neighbors(ConnectionType.NodeNextToRoad, node_id)
+            self.assertEqual(len(neighbors), len(roads))
         node_num_neighbors = Counter(node_num_neighbors)
         self.assertDictEqual(node_num_neighbors, {2:18, 3:36})
 
