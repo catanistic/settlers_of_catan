@@ -1,5 +1,4 @@
 from ...context import catan
-from catan.shared.objects import GameObjectType
 from catan.graph import ConnectionType
 
 from collections import Counter
@@ -14,7 +13,7 @@ class TestBaseSetup(unittest.TestCase):
         self.setup(self.game)
 
     def testRoads(self):
-        road_ids = list(self.game.ids[GameObjectType.Road])
+        road_ids = list(self.game.ids[catan.road.Road])
         self.assertEqual(len(road_ids), 72)
 
         roads_with_num_neighbors = []
@@ -25,11 +24,11 @@ class TestBaseSetup(unittest.TestCase):
         self.assertDictEqual(roads_with_num_neighbors, {2:6, 3:24, 4:42})
 
     def testPorts(self):
-        port_ids = list(self.game.ids[GameObjectType.Port])
+        port_ids = list(self.game.ids[catan.port.Port])
         self.assertEqual(len(port_ids), 9)
 
         port_counts = []
-        for node_id in self.game.ids[GameObjectType.Node]:
+        for node_id in self.game.ids[catan.node.Node]:
             port_ids_ = self.game.graph.neighbors(ConnectionType.NextToPort, node_id)
             port_counts += list(port_ids_)
         port_counts = Counter(port_counts)
@@ -37,7 +36,7 @@ class TestBaseSetup(unittest.TestCase):
             self.assertEqual(port_counts[port_id], 2)
 
     def testNodes(self):
-        node_ids = list(self.game.ids[GameObjectType.Node])
+        node_ids = list(self.game.ids[catan.node.Node])
         self.assertEqual(len(node_ids), 54)
 
         node_num_neighbors = []
@@ -50,7 +49,7 @@ class TestBaseSetup(unittest.TestCase):
         self.assertDictEqual(node_num_neighbors, {2:18, 3:36})
 
     def testTiles(self):
-        tile_ids = list(self.game.ids[GameObjectType.Tile])
+        tile_ids = list(self.game.ids[catan.tile.Tile])
         self.assertEqual(len(tile_ids), 19)
 
         for tile_id in tile_ids:

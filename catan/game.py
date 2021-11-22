@@ -1,16 +1,16 @@
-from catan.action.base import ActionType
+from catan.agent import Agent
 from catan.card import DevelopmentCardType
 from catan.graph import Graph, ConnectionType
 from catan.resource import ValidResourceTypes
-from catan.shared.objects import GameObject, GameObjectType
+from catan.shared.objects import GameObject
 from catan.shared.schema import FieldType
-from catan.state.base import GameStateType
 from catan.state.spectate import SpectateGameState
 
 
-class GameState(GameObject):
-    game_object_type = GameObjectType.GameState
+import numpy as np 
 
+
+class GameState(GameObject):
     def __init__(self):
         super().__init__()
         self.resources = {}
@@ -32,9 +32,16 @@ class GameState(GameObject):
 
 
 class Game():
-    def __init__(self, victory_points=10, logging_callbacks=None):
+    def __init__(self, victory_points=10, agent_names=None, logging_callbacks=None):
+        """Initializes the game.
+
+        Args:
+            victory_points: number of points required for the victory.
+            agent_names: the list of agent names.
+            logging_callbacks: a list of logging callbacks.
+        """
         super().__init__()
-        self.ids = {object_type:set() for object_type in GameObjectType}
+        self.ids = {}
         self.game_objects = {}
 
         self.graph = Graph()
@@ -49,17 +56,22 @@ class Game():
         self.done = False
         self.action_history = []
 
-        self.agent_order = []
+        if agent_names is None:
+            agent_names = ["Alice"]
+        self.agent_order = [Agent(agent_name=name) for name in agent_names]
+        np.random.shuffle(self.agent_order)
         self.curr_agent_index = 0
 
         self.logging_callbacks = logging_callbacks 
 
     @property
-    def curr_agent_id(self):
+    def curr_agent(self):
         return self.agent_order[self.curr_agent_index]
     
     def addGameObject(self, game_object):
-        self.ids[game_object.game_object_type].add(game_object.id)
+        if game_object.__class__ not in self.ids:
+            self.ids[game_object.__class__] = set()
+        self.ids[game_object.__class__].add(game_object.id)
         self.game_objects[game_object.id] = game_object
         self.graph.addGameObjects([game_object.id])
 

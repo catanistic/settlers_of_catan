@@ -1,9 +1,7 @@
-from catan.shared import GameObject, GameObjectType, FieldType
+from catan.shared import GameObject, FieldType
 
 
 class Road(GameObject):
-    game_object_type = GameObjectType.Road
-
     def __init__(self, position):
         super().__init__()
         self.position = position

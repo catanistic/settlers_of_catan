@@ -12,8 +12,9 @@ class TestGameObject(unittest.TestCase):
         self.assertIsInstance(self.object.schema, catan.shared.Schema)
 
     def testId(self):
-        self.object.game_object_type = catan.shared.GameObjectType.Agent
-        self.assertTrue(self.object.id.startswith("agent"))
+        id_1 = self.object.id
+        self.assertIsInstance(self.object.id, int)
         self.object = catan.shared.GameObject()
-        self.object.game_object_type = catan.shared.GameObjectType.Agent
-        self.assertTrue(self.object.id.startswith("agent"))
+        id_2 = self.object.id
+        self.assertIsInstance(self.object.id, int)
+        self.assertNotEqual(id_1, id_2)

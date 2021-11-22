@@ -1,6 +1,6 @@
 from catan.action.spectate import SpectateFactory
-from catan.state.base import GameState, GameStateType
-from catan.shared.objects import GameObjectType
+from catan.agent import Agent
+from catan.state.base import GameState
 
 
 class SpectateGameState(GameState):
@@ -15,7 +15,7 @@ class SpectateGameState(GameState):
         super().__init__(game)
         self.curr_spectator = 0
         self.next_state = action.next_state
-        self.specator_ids = list(game.ids[GameObjectType.Agent])
+        self.specator_ids = list(game.ids[Agent])
         self.specator_ids = filter(lambda x: x != action.agent.id, self.specator_ids)
         self.action = action
         self.actionFactory = SpectateFactory()

@@ -1,9 +1,7 @@
-from catan.shared import GameObject, GameObjectType, FieldType
+from catan.shared import GameObject, FieldType
 
 
 class Robber(GameObject):
-    game_object_type = GameObjectType.Robber
-
     def __init__(self):
         super().__init__()
         self.position = None

@@ -1,11 +1,9 @@
 from catan.card import ValidDevelopmentCardTypes
 from catan.resource import ValidResourceTypes
-from catan.shared import GameObject, GameObjectType, FieldType
+from catan.shared import GameObject, FieldType
 
 
 class Agent(GameObject):
-    game_object_type = GameObjectType.Agent
-
     def __init__(self, agent_name=None):
         super().__init__()
         self.agent_name = agent_name if agent_name else str(self.object_id)
@@ -13,10 +11,6 @@ class Agent(GameObject):
         self.development_cards = {c:0 for c in ValidDevelopmentCardTypes}
         self.development_cards_buffer = {c:0 for c in ValidDevelopmentCardTypes}
         self.played_development_cards = {c:0 for c in ValidDevelopmentCardTypes}
-
-    @property
-    def id(self):
-        return "{}.{}".format(super().id, self.agent_name)
 
     def __str__(self):
         return "Player ({})".format(self.agent_name)

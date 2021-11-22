@@ -1,4 +1,4 @@
-from catan.shared import GameObject, GameObjectType, FieldType
+from catan.shared import GameObject, FieldType
 
 from enum import Enum
 
@@ -10,8 +10,6 @@ class NodeState(Enum):
 
 
 class Node(GameObject):
-    game_object_type = GameObjectType.Node
-
     def __init__(self, position):
         super().__init__()
         self.state = NodeState.Empty

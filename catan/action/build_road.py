@@ -1,10 +1,8 @@
-from catan.action.base import ActionType, Action, ActionFactory
+from catan.action.base import Action, ActionFactory
 from catan.shared import FieldType 
 
 
 class BuildRoad(Action):
-    action_type = ActionType.BuildRoad
-
     def __init__(self, agent, next_state, road, is_free=False):
         super().__init__(agent, next_state)
         self.road = road 
@@ -29,8 +27,6 @@ class BuildRoad(Action):
 
 
 class BuildRoadFactory(ActionFactory):
-    action_type = ActionType.BuildRoad
-
     def __init__(self, game, agent, next_state, is_free=False, node=None, road_number=1):
         super().__init__(game, agent, next_state)
         self.is_free = is_free

@@ -9,7 +9,7 @@ class TestBuildSettlement(unittest.TestCase):
         self.game = catan.game.Game()
         setup = catan.setup.default.DefaultGameSetup()
         setup(self.game)
-        node_ids = self.game.ids[catan.shared.objects.GameObjectType.Node]
+        node_ids = self.game.ids[catan.node.Node]
         node_id = next(iter(node_ids))
         self.node = self.game.game_objects[node_id]
         self.agent = catan.agent.Agent(agent_name="Bob")
