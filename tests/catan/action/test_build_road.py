@@ -12,7 +12,7 @@ class TestBuildRoad(unittest.TestCase):
         road_ids = self.game.ids[catan.road.Road]
         road_id = next(iter(road_ids))
         self.road = self.game.game_objects[road_id]
-        self.agent = catan.agent.Agent(agent_name="Bob")
+        self.agent = self.game.agent_order[0]
         self.action = catan.action.build_road.BuildRoad(self.agent, None, self.road)
     
     def testObservation(self):
@@ -22,7 +22,10 @@ class TestBuildRoad(unittest.TestCase):
 
 class TestBuildRoadFactory(unittest.TestCase):
     def setUp(self):
-        pass
+        super().setUp()
+        self.game = catan.game.Game()
+        setup = catan.setup.default.DefaultGameSetup()
+        setup(self.game)
 
     def testTest(self):
         pass

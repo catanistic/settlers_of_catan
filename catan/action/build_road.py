@@ -1,4 +1,6 @@
 from catan.action.base import Action, ActionFactory
+from catan.graph import ConnectionType
+from catan.road import Road
 from catan.shared import FieldType 
 
 
@@ -23,7 +25,29 @@ class BuildRoad(Action):
             self.agent.agent_name, free_modifier, str(self.road))
 
     def __call__(self, game):
-        raise NotImplementedError()
+        # Set road owner.
+        self.road.owner = self.agent
+        game.graph.connect(ConnectionType.Owns, self.agent.id, self.road.id)
+
+        # Disconnect neighbor roads with different owner.
+        neighbor_road_ids = game.graph.neighbors(ConnectionType.RoadNeighbor, self.road.id)
+        for road_id in neighbor_road_ids:
+            neighbor_road = game.game_objects[road_id]
+            if neighbor_road.occupied and neighbor_road.owner != self.agent:
+                game.graph.disconnect(ConnectionType.RoadNeighbor, self.road.id, road_id)
+
+        # Disconnect neighbor nodes with different owner.
+        for node in self.road.nodes:
+            if node.occupied and node.owner != self.agent:
+                game.graph.disconnect(ConnectionType.NodeNextToRoad, node.id, self.road.id)
+
+        # TODO: add node "booking" mechanism when 2 roads from same agent are neighbors.
+
+        # TODO: trigger longest road check for current agent.
+
+        # TODO: subtract resources from the agent for building a road.
+
+        game.state = self.next_state
 
 
 class BuildRoadFactory(ActionFactory):
@@ -41,4 +65,13 @@ class BuildRoadFactory(ActionFactory):
             List of legal action of type action_type.
         """
         next_state = self.next_state if self.curr_road == self.road_number else self
+        self.curr_road += 1
+
+        if not self.node is None:
+            available_road_ids = self.game.graph.neighbors(ConnectionType.NodeNextToRoad, self.node.id)
+        else:
+            owned_objects_ids = self.game.graph.neighbors(ConnectionType.Owns, self.agent.id)
+            road_ids = self.game.ids[Road]
+            print(road_ids)
+            
         raise NotImplementedError()

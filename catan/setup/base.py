@@ -99,6 +99,7 @@ class GameSetup():
                 game.graph.connect(connection_type, node.id, neighbor.id)
 
                 road = self.roads[row][col]
+                road.nodes += [node, neighbor]
                 game.graph.connect(road_connection, node.id, road.id)
                 game.graph.connect(road_connection, neighbor.id, road.id)
 
@@ -113,6 +114,7 @@ class GameSetup():
                 game.graph.connect(connection_type, node.id, neighbor.id)
 
                 road = self.side_roads[row - 1][col // 2]
+                road.nodes += [node, neighbor]
                 game.graph.connect(road_connection, node.id, road.id)
                 game.graph.connect(road_connection, neighbor.id, road.id)
 
