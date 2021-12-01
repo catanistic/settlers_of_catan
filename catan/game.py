@@ -48,9 +48,9 @@ class Game():
         for connection_type in ConnectionType:
             self.graph.addConnectionType(connection_type)
 
-        game_state = GameState()
-        self.game_state_id = game_state.id
-        self.addGameObject(game_state)
+        self.game_state = GameState()
+        self.game_state_id = self.game_state.id
+        self.addGameObject(self.game_state)
 
         self.victory_points = victory_points
         self.done = False

@@ -1,7 +1,14 @@
 from catan.action.base import Action, ActionFactory
+from catan.resource import ResourceType
 from catan.graph import ConnectionType
 from catan.road import Road
 from catan.shared import FieldType 
+
+
+ROAD_PRICE = {
+    ResourceType.Clay: 1,
+    ResourceType.Wood: 1,
+}
 
 
 class BuildRoad(Action):
@@ -9,6 +16,7 @@ class BuildRoad(Action):
         super().__init__(agent, next_state)
         self.road = road 
         self.is_free = is_free
+        self.price = ROAD_PRICE
         self.schema.append_field("road_id", FieldType.GameObjectReference)
         self.schema.append_field("is_free", FieldType.Integer)
 
@@ -46,8 +54,7 @@ class BuildRoad(Action):
         # TODO: trigger longest road check for current agent.
 
         if not self.is_free:
-            # TODO: subtract resources from the agent for building a road.
-            pass
+            self.agent.pay(self.price, game)
 
         game.state = self.next_state
 

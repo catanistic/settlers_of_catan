@@ -1,7 +1,16 @@
 from catan.action.base import ActionType, Action, ActionFactory
 from catan.graph import ConnectionType
 from catan.node import NodeState
+from catan.resource import ResourceType
 from catan.shared import FieldType 
+
+
+SETTLEMENT_PRICE = {
+    ResourceType.Clay: 1,
+    ResourceType.Wheat: 1,
+    ResourceType.Wood: 1,
+    ResourceType.Wool: 1,
+}
 
 class BuildSettlement(Action):
     action_type = ActionType.BuildSettlement
@@ -10,6 +19,7 @@ class BuildSettlement(Action):
         super().__init__(agent, next_state)
         self.node = node
         self.is_free = is_free
+        self.price = SETTLEMENT_PRICE
         self.schema.append_field("node_id", FieldType.GameObjectReference)
         self.schema.append_field("is_free", FieldType.Integer)
 
@@ -45,8 +55,7 @@ class BuildSettlement(Action):
                 game.graph.disconnect(ConnectionType.NodeNeighbor, self.node.id, node_id)
 
         if not self.is_free:
-            # TODO: subtract resources from the agent for building a road.
-            pass
+            self.agent.pay(self.price, game)
 
         game.state = self.next_state
 

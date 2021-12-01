@@ -1,5 +1,14 @@
 from catan.action.base import ActionType, Action, ActionFactory
+from catan.resource import ResourceType
 from catan.shared import FieldType 
+
+
+CITY_PRICE = {
+    ResourceType.Clay: 1,
+    ResourceType.Wheat: 1,
+    ResourceType.Wood: 1,
+    ResourceType.Wool: 1,
+}
 
 
 class UpgradeSettlement(Action):
