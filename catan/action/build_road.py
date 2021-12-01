@@ -45,7 +45,9 @@ class BuildRoad(Action):
 
         # TODO: trigger longest road check for current agent.
 
-        # TODO: subtract resources from the agent for building a road.
+        if not self.is_free:
+            # TODO: subtract resources from the agent for building a road.
+            pass
 
         game.state = self.next_state
 

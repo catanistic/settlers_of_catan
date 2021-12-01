@@ -1,6 +1,7 @@
 from catan.action.base import ActionType, Action, ActionFactory
+from catan.graph import ConnectionType
+from catan.node import NodeState
 from catan.shared import FieldType 
-
 
 class BuildSettlement(Action):
     action_type = ActionType.BuildSettlement
@@ -25,7 +26,29 @@ class BuildSettlement(Action):
             self.agent.agent_name, free_modifier, str(self.node))
 
     def __call__(self, game):
-        raise NotImplementedError()
+        self.node.owner = self.agent
+        self.node.state = NodeState.Settlement
+        game.graph.connect(ConnectionType.Owns, self.agent.id, self.node.id)
+
+        # Disconnect neighbor roads with different owner.
+        neighbor_road_ids = game.graph.neighbors(ConnectionType.NodeNextToRoad, self.node.id)
+        for road_id in neighbor_road_ids:
+            neighbor_road = game.game_objects[road_id]
+            if neighbor_road.occupied and neighbor_road.owner != self.agent:
+                game.graph.disconnect(ConnectionType.NodeNextToRoad, self.node.id, road_id)
+        
+        # Disconnect neighbor nodes with different owner.
+        neighbor_node_ids = game.graph.neighbors(ConnectionType.NodeNeighbor, self.node.id)
+        for node_id in neighbor_node_ids:
+            neighbor_node = game.game_objects[node_id]
+            if neighbor_node.occupied and neighbor_node.owner != self.agent:
+                game.graph.disconnect(ConnectionType.NodeNeighbor, self.node.id, node_id)
+
+        if not self.is_free:
+            # TODO: subtract resources from the agent for building a road.
+            pass
+
+        game.state = self.next_state
 
 
 class BuildSettlementFactory(ActionFactory):

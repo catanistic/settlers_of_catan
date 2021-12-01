@@ -22,7 +22,10 @@ class TestBuildSettlement(unittest.TestCase):
 
 class TestBuildSettlementFactory(unittest.TestCase):
     def setUp(self):
-        pass
+        super().setUp()
+        self.game = catan.game.Game()
+        setup = catan.setup.default.DefaultGameSetup()
+        setup(self.game)
 
     def testTest(self):
         pass
