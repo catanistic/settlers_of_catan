@@ -54,6 +54,8 @@ class BuildSettlement(Action):
             if neighbor_node.occupied and neighbor_node.owner != self.agent:
                 game.graph.disconnect(ConnectionType.NodeNeighbor, self.node.id, node_id)
 
+        # TODO: add agent reward.
+
         if not self.is_free:
             self.agent.pay(self.price, game)
 

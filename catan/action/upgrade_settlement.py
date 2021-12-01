@@ -1,4 +1,5 @@
 from catan.action.base import ActionType, Action, ActionFactory
+from catan.node import NodeState
 from catan.resource import ResourceType
 from catan.shared import FieldType 
 
@@ -12,8 +13,6 @@ CITY_PRICE = {
 
 
 class UpgradeSettlement(Action):
-    action_type = ActionType.UpgradeSettlement
-
     def __init__(self, agent, next_state, node):
         super().__init__(agent, next_state)
         self.node = node 
@@ -30,18 +29,15 @@ class UpgradeSettlement(Action):
             self.agent.agent_name, str(self.node))
 
     def __call__(self, game):
-        raise NotImplementedError()
+        self.node.state = NodeState.City
+        self.agent.pay(self.price, game)
+        # TODO: add agent reward.
+        game.state = self.next_state
 
 
 class UpgradeSettlementFactory(ActionFactory):
-    action_type = ActionType.UpgradeSettlement
-
-    def __call__(self, game, agent):
+    def __call__(self):
         """Returns a list of available actions of type action_type for the player.
-
-        Args:
-            game: A catan.game.Game object.
-            agent_id: Agent id for the agend that.
 
         Returns:
             List of legal action of type action_type.
