@@ -1,11 +1,9 @@
-from catan.action.base import ActionType, Action, ActionFactory
+from catan.action.base import Action, ActionFactory
 from catan.resource import ResourceType
 from catan.shared import FieldType 
 
 
 class EarnResource(Action):
-    action_type = ActionType.EarnResource
-
     def __init__(self, agent, next_state, amount, resource_type):
         super().__init__(agent, next_state)
         self.resource_type = resource_type
@@ -27,11 +25,15 @@ class EarnResource(Action):
         )
 
     def __call__(self, game):
-        raise NotImplementedError()
+        game.game_state.resources[self.resource_type] -= self.amount
+        self.agent.resources[self.resource_type] += self.amount
+        game.state = self.next_state
 
 
 class EarnResourceFactory(ActionFactory):
-    action_type = ActionType.EarnResource
+    def __init__(self, game, agent, next_state, dice_roll):
+        super().__init__(game, agent, next_state)
+        self.dice_roll = dice_roll
 
     def __call__(self):
         """Returns a list of available actions of type action_type for the player.

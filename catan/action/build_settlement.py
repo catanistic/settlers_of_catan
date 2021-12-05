@@ -63,8 +63,6 @@ class BuildSettlement(Action):
 
 
 class BuildSettlementFactory(ActionFactory):
-    action_type = ActionType.BuildSettlement
-
     def __call__(self):
         """Returns a list of available actions of type action_type for the player.
 
