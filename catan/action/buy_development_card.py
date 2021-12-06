@@ -1,6 +1,4 @@
 from catan.action.base import ActionType, Action, ActionFactory
-from catan.graph import ConnectionType
-from catan.node import NodeState
 from catan.resource import ResourceType
 from catan.shared import FieldType
 
