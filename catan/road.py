@@ -11,3 +11,6 @@ class Road(GameObject):
     @property
     def occupied(self):
         return not(self.owner is None)
+
+    def observation(self, spectator_id=None):
+        return []

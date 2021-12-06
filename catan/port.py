@@ -7,3 +7,6 @@ class Port(GameObject):
         super().__init__()
         self.resource = ResourceType.Everything
         self.exchange_rate = 3
+
+    def observation(self, spectator_id=None):
+        return []

@@ -67,6 +67,6 @@ class Agent(GameObject):
 
     def observation(self, spectator_id=None):
         if spectator_id == self.id:
-            return
+            return []
         else:
-            return
+            return []

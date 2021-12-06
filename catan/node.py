@@ -16,6 +16,9 @@ class Node(GameObject):
         self.position = position
         self.owner = None
 
+    def observation(self, spectator_id=None):
+        return []
+
     @property
     def occupied(self):
         return not(self.owner is None)

@@ -31,3 +31,6 @@ class Tile(GameObject):
 
     def __str__(self):
         return "Tile at {} of type {}".format(self.position, self.resource_type.value)
+
+    def observation(self, spectator_id=None):
+        return []
