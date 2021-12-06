@@ -7,6 +7,10 @@ from catan.tile import Tile
 from catan.resource import ValidResourceTypes
 from catan.card import DevelopmentCardType
 
+import random
+import numpy as np
+
+
 TILES_PER_ROW = [3, 4, 5, 4, 3]
 PORT_NODES = [
     [(0, 2), (0, 3)],
@@ -46,6 +50,8 @@ class GameSetup():
         self.side_roads = None
         self.ports = None
         self.robber = None
+        self.start_resource_cards_per_player = 7
+        self.game_state_key = 0
 
     def _generateTiles(self, game):
         self.tiles = []
@@ -171,14 +177,22 @@ class GameSetup():
         for resource_type in ValidResourceTypes:
             game.game_state.resources[resource_type] = 19
 
+    def _assignRandomResource(self, game, agent):
+        if self.game_state_key in game.game_objects.keys():
+            random_selection = random.choice(list(ValidResourceTypes))
+            cards_available = all([i > 0 for i in game.game_objects[0].resources.values()])
+            if cards_available:
+                curr_count = game.game_objects[0].resources[random_selection]
+                if curr_count > 0:
+                    game.game_objects[0].resources[random_selection] -= 1
+                    agent.resources[random_selection] += 1
+                else:
+                    self._assignRandomResource(game, agent)
+
     def _distributeInitialResources(self, game):
-        for i in range(7):
+        for i in range(self.start_resource_cards_per_player):
             for agent in game.agent_order:
-                # simulate shuffle (random weighted choice)
-                # choose a resource type
-                # remove from game state resources
-                # add to player agent resources
-                pass
+                self._assignRandomResource(game, agent)
 
     def __call__(self, game):
         # Generating Game Objects
