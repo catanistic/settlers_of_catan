@@ -1,5 +1,5 @@
 from catan.agent import Agent
-from catan.card import DevelopmentCardType
+from catan.card import ValidDevelopmentCardTypes
 from catan.graph import Graph, ConnectionType
 from catan.resource import ValidResourceTypes
 from catan.shared.objects import GameObject
@@ -20,14 +20,14 @@ class GameState(GameObject):
 
         self.schema.append_field("development_cards", FieldType.Integer)
         self.development_cards = {
-            card: 0 for card in DevelopmentCardType
+            card: 0 for card in ValidDevelopmentCardTypes
         }
 
     def observation(self):
         observation = {}
         for resource in ValidResourceTypes:
             observation[resource.value] = int(self.resources[resource] > 0)
-        observation["development_cards"] = sum(self.development_cards[card] for card in DevelopmentCardType)
+        observation["development_cards"] = int(sum(self.development_cards[card] for card in ValidDevelopmentCardTypes) > 0)
         return self.schema(**observation)
 
 

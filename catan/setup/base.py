@@ -4,7 +4,8 @@ from catan.port import Port
 from catan.road import Road
 from catan.robber import Robber
 from catan.tile import Tile
-
+from catan.resource import ValidResourceTypes
+from catan.card import DevelopmentCardType
 
 TILES_PER_ROW = [3, 4, 5, 4, 3]
 PORT_NODES = [
@@ -19,6 +20,13 @@ PORT_NODES = [
     [(1, 0), (1, 1)],
 ]
 
+DEVELOPMENT_CARDS = {
+    DevelopmentCardType.Knight: 14,
+    DevelopmentCardType.YearOfPlenty: 2,
+    DevelopmentCardType.RoadBuilding: 2,
+    DevelopmentCardType.VictoryPoint: 5,
+    DevelopmentCardType.Monopoly: 2,
+}
 
 def calculateNumberOfNodesAt(row):
     previous_level_tiles = TILES_PER_ROW[row- 1] if 0 <= row - 1 else 0
@@ -155,12 +163,28 @@ class GameSetup():
         for node_id in node_ids:
             game.graph.connect(ConnectionType.RobberNextToNode, self.robber.id, node_id)
 
+    def _addInitialDevelopmentCards(self, game):
+        for card_type, count in DEVELOPMENT_CARDS.items():
+            game.game_state.development_cards[card_type] = count
+
+    def _addInitialResourceCards(self, game):
+        for resource_type in ValidResourceTypes:
+            game.game_state.resources[resource_type] = 19
+
+    def _distributeInitialResources(self, game):
+        pass
+
     def __call__(self, game):
         # Generating Game Objects
         self._generateTiles(game)
         self._generateNodes(game)
         self._generateRoads(game)
         self._generatePorts(game)
+        # Initialize resource and development cards
+        self._addInitialResourceCards(game)
+        self._addInitialDevelopmentCards(game)
+        # Deal out cards to each player
+        self._distributeInitialResources(game)
 
         self.robber = Robber()
         game.addGameObject(self.robber)
