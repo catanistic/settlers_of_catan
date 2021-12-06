@@ -36,7 +36,7 @@ TILE_NUMBER_TOKENS = [
     0, 8, 5,
 ]
 
-ROBBER_POSITION = (2, 2)
+ROBBER_POSITION = (4, 0)
 
 PORT_CONFIGURATIONS = [
     (ResourceType.Everything, 3),
@@ -57,7 +57,7 @@ class DefaultGameSetup(GameSetup):
         number_tokens = iter(TILE_NUMBER_TOKENS)
         for tiles in self.tiles:
             for tile in tiles:
-                tile.resource = next(resource_types)
+                tile.resource_type = next(resource_types)
                 tile.number_token = next(number_tokens)
         
         self.setRobberPosition(game, ROBBER_POSITION)

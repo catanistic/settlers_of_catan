@@ -17,8 +17,8 @@ class RandomGameSetup(GameSetup):
 
         for tiles in self.tiles:
             for tile in tiles:
-                tile.resource = next(resource_types)
-                if tile.resource != ResourceType.Null:
+                tile.resource_type = next(resource_types)
+                if tile.resource_type != ResourceType.Null:
                     tile.number_token = next(number_tokens)
                 else:
                     tile.number_token = 0
