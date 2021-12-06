@@ -172,7 +172,13 @@ class GameSetup():
             game.game_state.resources[resource_type] = 19
 
     def _distributeInitialResources(self, game):
-        pass
+        for i in range(7):
+            for agent in game.agent_order:
+                # simulate shuffle (random weighted choice)
+                # choose a resource type
+                # remove from game state resources
+                # add to player agent resources
+                pass
 
     def __call__(self, game):
         # Generating Game Objects
