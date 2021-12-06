@@ -38,6 +38,7 @@ class BuildSettlement(Action):
     def __call__(self, game):
         self.node.owner = self.agent
         self.node.state = NodeState.Settlement
+        self.agent.points += 1 #add 1 victory point to the agent
         game.graph.connect(ConnectionType.Owns, self.agent.id, self.node.id)
 
         # Disconnect neighbor roads with different owner.

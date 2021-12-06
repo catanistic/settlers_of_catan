@@ -5,10 +5,8 @@ from catan.shared import FieldType
 
 
 CITY_PRICE = {
-    ResourceType.Clay: 1,
-    ResourceType.Wheat: 1,
-    ResourceType.Wood: 1,
-    ResourceType.Wool: 1,
+    ResourceType.Wheat: 2,
+    ResourceType.Ore: 3
 }
 
 
@@ -31,6 +29,7 @@ class UpgradeSettlement(Action):
     def __call__(self, game):
         self.node.state = NodeState.City
         self.agent.pay(self.price, game)
+        self.agent.points += 1 #add 1 victory point to the agent
         # TODO: add agent reward.
         game.state = self.next_state
 

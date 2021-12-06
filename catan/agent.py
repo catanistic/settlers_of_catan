@@ -15,6 +15,7 @@ class Agent(GameObject):
         """
         super().__init__()
         self.agent_name = agent_name if agent_name else str(self.object_id)
+        self.points = 0
         self.resources = {r:0 for r in ValidResourceTypes}
         self.development_cards = {c:0 for c in ValidDevelopmentCardTypes}
         self.development_cards_buffer = {c:0 for c in ValidDevelopmentCardTypes}
